@@ -1,0 +1,20 @@
+\begin{tikzpicture}[]
+\begin{axis}[
+  enlargelimits = false,
+  axis on top,
+  colormap={wb}{gray(0cm)=(0); gray(1cm)=(1)},
+  colorbar
+]
+
+\addplot[
+  point meta min = -10.922599660354813,
+  point meta max = 0.552384583415926
+] graphics[
+  xmin = -1,
+  xmax = 1,
+  ymin = -1,
+  ymax = 1
+] {tmp_10000000000001.png};
+
+\end{axis}
+\end{tikzpicture}

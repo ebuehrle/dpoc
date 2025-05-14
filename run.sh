@@ -6,3 +6,4 @@ julia --project roundabout3.jl
 julia --project roundabout4.jl
 
 mv *.pdf fig/
+mv *.tex fig/

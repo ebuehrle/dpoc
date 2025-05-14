@@ -21,14 +21,18 @@ optimize!(m)
 μ = expectation.(x',ν)
 σ = sqrt.(expectation.(x'.^2,ν) - μ.^2)
 
-save("diffusion2.pdf", Axis([
+p_ = Axis([
 	Plots.Linear(T[1:N-1],μ[:,1],legendentry=L"\mu_1"),
 	Plots.Linear(T[1:N-1],μ[:,2],legendentry=L"\mu_2"),
 	Plots.Linear(T[1:N-1],σ[:,1],legendentry=L"\sigma_1"),
 	Plots.Linear(T[1:N-1],σ[:,2],legendentry=L"\sigma_2"),
-]))
+])
+save("diffusion2.pdf", p_)
+save("diffusion2.tex", p_, include_preamble=false)
 
-save("diffusion2e.pdf", Axis([
+p_ = Axis([
 	Plots.Linear(μ[:,1],μ[:,2]),
 	Plots.Linear(cos.(range(0,2pi,100)),sin.(range(0,2pi,100)),style="blue, no marks, dashed"),
-], xmin=-1.2, xmax=1.7, ymin=-1.2, ymax=1.2))
+], xmin=-1.2, xmax=1.7, ymin=-1.2, ymax=1.2)
+save("diffusion2e.pdf", p_)
+save("diffusion2e.tex", p_, include_preamble=false)

@@ -23,7 +23,7 @@ end
 
 let v = monomials(x[1:2],0:d)
     q = v'*inv(integrate.(v*v',M))*v
-    save("christoffel.pdf", Axis([
+    p_ = Axis([
         Plots.Image((x...)->-log(q(x...)),(-1,1),(-1,1)),
         Plots.Quiver(
             D[1:50:end, "x"],
@@ -32,7 +32,9 @@ let v = monomials(x[1:2],0:d)
             D[1:50:end, "vy"],
             style="-stealth, blue, no markers"
         ),
-    ], xmin=-1, xmax=1, ymin=-1, ymax=1))
+    ], xmin=-1, xmax=1, ymin=-1, ymax=1)
+    save("christoffel.pdf", p_)
+    save("christoffel.tex", p_, include_preamble=false)
 end
 
 m = GMPModel(Mosek.Optimizer)
@@ -47,4 +49,6 @@ optimize!(m)
 q = let v = monomials(x[1:2],0:d)
     v'*inv(integrate.(v*v',μ))*v
 end
-save("roundabout.pdf", Plots.Image((x...)->-log(q(x...)),(-1,1),(-1,1)))
+p_ = Plots.Image((x...)->-log(q(x...)),(-1,1),(-1,1))
+save("roundabout.pdf", p_)
+save("roundabout.tex", p_, include_preamble=false)

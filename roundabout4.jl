@@ -32,4 +32,6 @@ optimize!(m)
 q = let v = monomials(x[1:2],0:d)
     v'*inv(expectation.(v*v',[μ]))*v
 end
-save("roundabout4.pdf", Plots.Image((x...)->-log(q(x...)),(-1,1),(-1,1)))
+p_ = Plots.Image((x...)->-log(q(x...)),(-1,1),(-1,1))
+save("roundabout4.pdf", p_)
+save("roundabout4.tex", p_, include_preamble=false)

@@ -33,4 +33,6 @@ optimize!(m)
 q = let v = monomials(x[1:2],0:d)
     v'*inv(integrate.(v*v',μ))*v
 end
-save("roundabout2.pdf", Plots.Image((x...)->-log(q(x...)),(-1,1),(-1,1)))
+p_ = Plots.Image((x...)->-log(q(x...)),(-1,1),(-1,1))
+save("roundabout2.pdf", p_)
+save("roundabout2.tex", p_, include_preamble=false)
