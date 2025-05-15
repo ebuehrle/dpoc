@@ -30,5 +30,5 @@ save("diffusion2.pdf", Axis([
 
 save("diffusion2e.pdf", Axis([
 	Plots.Linear(μ[:,1],μ[:,2]),
-	Plots.Linear(cos.(range(0,2pi,100)),sin.(range(0,2pi,100)),style="blue, no marks, dashed"),
+	Plots.Linear(cos.(range(0,2π,100)),sin.(range(0,2π,100)),closedCycle=true,style="blue, no marks, dashed"),
 ], xmin=-1.2, xmax=1.7, ymin=-1.2, ymax=1.2))
