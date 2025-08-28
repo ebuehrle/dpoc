@@ -24,7 +24,7 @@ end
 let v = monomials(x[1:2],0:d)
     q = v'*inv(integrate.(v*v',M))*v
     save("christoffel.pdf", Axis([
-        Plots.Image((x...)->-log(q(x...)),(-1,1),(-1,1)),
+        Plots.Image((x...)->log(q(x...)),(-1,1),(-1,1)),
         Plots.Quiver(
             D[1:50:end, "x"],
             D[1:50:end, "y"],
