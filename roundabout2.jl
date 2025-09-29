@@ -33,4 +33,13 @@ optimize!(m)
 q = let v = monomials(x[1:2],0:d)
     v'*inv(integrate.(v*v',μ))*v
 end
-save("roundabout2.pdf", Plots.Image((x...)->1/q(x...),(-1,1),(-1,1)))
+save("roundabout2.pdf", Axis([
+    Plots.Image((x...)->1/q(x...),(-1,1),(-1,1)),
+    Plots.Quiver(
+        D[1:50:end, "x"],
+        D[1:50:end, "y"],
+        D[1:50:end, "vx"]/3,
+        D[1:50:end, "vy"]/3,
+        style="-stealth, blue, no markers"
+    ),
+], xmin=-1, xmax=1, ymin=-1, ymax=1))
