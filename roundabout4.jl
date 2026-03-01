@@ -62,5 +62,5 @@ save("roundabout4.pdf", Axis([
     );
     Plots.Scatter( 0.2,-1.0);
     Plots.Scatter(-1.0, 0.8, style="mark=x, red");
-    [Plots.Linear(m, style="white, no markers") for m in map_ways]
+    [Plots.Linear(m, style="white, solid, no markers") for m in map_ways]
 ], xmin=-1, xmax=1, ymin=-1, ymax=1))
