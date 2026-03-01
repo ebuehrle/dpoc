@@ -3,6 +3,25 @@ using MomentOpt, MosekTools
 using DynamicPolynomials
 using LinearAlgebra
 using PGFPlots
+using XML
+
+istype(way, type) = any(
+    e.tag == "tag" && e["k"] == "type" && e["v"] == type for e in way.children)
+
+map_node = XML.read("DR_DEU_Roundabout_OF.osm_xy", Node) |>
+    (m -> m.children) |> first |>
+    (m -> filter(e -> e.tag == "node", m.children)) .|>
+    (m -> (m["id"] => [parse(Float64, m["x"]), parse(Float64, m["y"])])) |>
+    Dict
+
+map_ways = XML.read("DR_DEU_Roundabout_OF.osm_xy", Node) |>
+    (m -> m.children) |> first |>
+    (m -> filter(e -> e.tag == "way", m.children)) |>
+    (m -> filter(e -> istype(e, "curbstone"), m)) .|>
+    (w -> filter(e -> e.tag == "nd", w.children)) .|>
+    (w -> stack(map_node[n["ref"]] for n in w)) .|>
+    (w -> w .- [1000, 1000]) .|>
+    (w -> w ./ 20)
 
 D = CSV.read("vehicle_tracks_000.csv", DataFrame) |>
     (d -> d[:,["x","y","vx","vy"]]) |>
@@ -34,13 +53,14 @@ q = let v = monomials(x[1:2],0:d)
     v'*inv(integrate.(v*v',μ))*v
 end
 save("roundabout2.pdf", Axis([
-    Plots.Image((x...)->1/q(x...),(-1,1),(-1,1)),
+    Plots.Image((x...)->1/q(x...),(-1,1),(-1,1));
     Plots.Quiver(
         D[1:50:end, "x"],
         D[1:50:end, "y"],
         D[1:50:end, "vx"]/3,
         D[1:50:end, "vy"]/3,
         style="-stealth, blue, no markers"
-    ),
-    Plots.Scatter( 0.3,-0.5),
+    );
+    Plots.Scatter( 0.3,-0.5);
+    [Plots.Linear(m, style="white, no markers") for m in map_ways]
 ], xmin=-1, xmax=1, ymin=-1, ymax=1))
