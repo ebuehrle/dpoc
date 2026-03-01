@@ -64,4 +64,4 @@ save("roundabout3.pdf", Axis([
     Plots.Linear(vehicle( 0.2,-1.0, 0.0, 0.1,5/20,2/20), style="brown, no markers, solid");
     Plots.Linear(vehicle(-0.5,-0.2, 0.1,-0.1,5/20,2/20), style="red, no markers, solid");
     [Plots.Linear(m, style="white, solid, no markers") for m in map_ways]
-], xmin=-1, xmax=1, ymin=-1, ymax=1))
+], xmin=-1, xmax=1, ymin=-1, ymax=1, xlabel="Easting (20\\,m)", ylabel="Northing (20\\,m)"))
