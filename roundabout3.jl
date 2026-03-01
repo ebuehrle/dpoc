@@ -5,6 +5,7 @@ using DynamicPolynomials
 using LinearAlgebra
 using PGFPlots
 using XML
+include("vehicle.jl")
 
 istype(way, type) = any(
     e.tag == "tag" && e["k"] == "type" && e["v"] == type for e in way.children)
@@ -60,7 +61,7 @@ save("roundabout3.pdf", Axis([
         D[1:50:end, "vy"]/3,
         style="-stealth, blue, no markers"
     );
-    Plots.Scatter( 0.2,-1.0);
-    Plots.Scatter(-0.5,-0.2, style="mark=x, red");
+    Plots.Linear(vehicle( 0.2,-1.0, 0.0, 0.1,5/20,2/20), style="brown, no markers, solid");
+    Plots.Linear(vehicle(-0.5,-0.2, 0.1,-0.1,5/20,2/20), style="red, no markers, solid");
     [Plots.Linear(m, style="white, solid, no markers") for m in map_ways]
 ], xmin=-1, xmax=1, ymin=-1, ymax=1))
