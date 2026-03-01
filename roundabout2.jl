@@ -42,4 +42,5 @@ save("roundabout2.pdf", Axis([
         D[1:50:end, "vy"]/3,
         style="-stealth, blue, no markers"
     ),
+    Plots.Scatter( 0.3,-0.5),
 ], xmin=-1, xmax=1, ymin=-1, ymax=1))
