@@ -43,14 +43,15 @@ end
 let v = monomials(x[1:2],0:d)
     q = v'*inv(integrate.(v*v',M))*v
     save("christoffel.pdf", Axis([
-        Plots.Image((x...)->log(q(x...)),(-1,1),(-1,1)),
+        Plots.Image((x...)->log(q(x...)),(-1,1),(-1,1));
         Plots.Quiver(
             D[1:50:end, "x"],
             D[1:50:end, "y"],
             D[1:50:end, "vx"]/3,
             D[1:50:end, "vy"]/3,
             style="-stealth, blue, no markers"
-        ),
+        );
+        [Plots.Linear(m, style="white, no markers") for m in map_ways]
     ], xmin=-1, xmax=1, ymin=-1, ymax=1))
 end
 
