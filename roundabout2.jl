@@ -53,15 +53,15 @@ optimize!(m)
 q = let v = monomials(x[1:2],0:d)
     v'*inv(integrate.(v*v',μ))*v
 end
-save("roundabout2.pdf", Axis([
-    Plots.Image((x...)->1/q(x...),(-1,1),(-1,1));
+save("roundabout.pdf", Axis([
+    Plots.Image((x,y)->1/q(x/20,y/20),(-20,20),(-20,20));
     Plots.Quiver(
-        D[1:50:end, "x"],
-        D[1:50:end, "y"],
-        D[1:50:end, "vx"]/3,
-        D[1:50:end, "vy"]/3,
+        20*D[1:50:end, "x"],
+        20*D[1:50:end, "y"],
+        20*D[1:50:end, "vx"]/3,
+        20*D[1:50:end, "vy"]/3,
         style="-stealth, blue, no markers"
     );
-    Plots.Linear(vehicle(0.3,-0.5,0.1,0.15,5/20,2/20), style="brown, no markers, solid");
-    [Plots.Linear(m, style="white, solid, no markers") for m in map_ways]
-], xmin=-1, xmax=1, ymin=-1, ymax=1, xlabel="Easting (20\\,m)", ylabel="Northing (20\\,m)", style="colorbar style={title=Density}"))
+    Plots.Linear(vehicle(20*0.3,20*(-0.5),20*0.1,20*0.15,5,2), style="brown, no markers, solid");
+    [Plots.Linear(20*m, style="white, solid, no markers") for m in map_ways]
+], xmin=-20, xmax=20, ymin=-20, ymax=20, xlabel="Easting (m)", ylabel="Northing (m)", style="colorbar style={title=Density}"))
